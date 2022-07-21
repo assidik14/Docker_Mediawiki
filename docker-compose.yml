@@ -1,0 +1,36 @@
+services:
+  mediawiki:
+    container_name: mediawiki-container
+    image: mediawiki:latest
+    ports:
+    - 80:80
+    #volumes:
+    # - ./LocalSettings.php:/var/www/html/LocalSettings.php
+    links:
+    - mysql
+    depends_on:
+      - mysql
+    networks:
+      - wiki-networks
+  
+  mysql:
+    container_name: mysql-container
+    image: mysql:8.0.29
+    environment:
+      - MYSQL_DATABASE=mediawiki
+      - MYSQL_USER=wikiuser
+      - MYSQL_PASSWORD=password
+      - MYSQL_RANDOM_ROOT_PASSWORD='yes'
+    ports:
+      - 3306:3306
+    networks:
+      - wiki-networks
+
+networks:
+  wiki-networks:
+    name: wiki-networks
+
+#Notes :
+# After initial setup, download LocalSettings.php to the same directory as
+# this yaml and uncomment the following line and use compose to restart
+# the mediawiki service
