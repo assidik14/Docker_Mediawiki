@@ -30,7 +30,7 @@ networks:
   wiki-networks:
     name: wiki-networks
 
-#Notes :
+# Notes :
 # After initial setup, download LocalSettings.php to the same directory as
-# this yaml and uncomment the following line and use compose to restart
+# this yaml and uncomment the volumes and use compose to restart
 # the mediawiki service
